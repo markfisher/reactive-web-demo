@@ -24,6 +24,7 @@
 		<java.version>1.8</java.version>
 		<reactor.version>3.0.0.BUILD-SNAPSHOT</reactor.version>
 		<spring.version>5.0.0.BUILD-SNAPSHOT</spring.version>
+		<spring-cloud-stream.version>1.1.0.BUILD-SNAPSHOT</spring-cloud-stream.version>
 	</properties>
 
 	<dependencies>
@@ -34,12 +35,12 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-stream-binder-rabbit</artifactId>
-			<version>1.1.0.BUILD-SNAPSHOT</version>
+			<version>${spring-cloud-stream.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-stream</artifactId>
-			<version>1.1.0.BUILD-SNAPSHOT</version>
+			<artifactId>spring-cloud-stream-reactive</artifactId>
+			<version>${spring-cloud-stream.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

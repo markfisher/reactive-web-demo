@@ -1,6 +1,6 @@
 package io.spring;
 
-import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.http.MediaType;
@@ -11,23 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
 @RestController
-@EnableBinding(Sink.class)
 public class RxController {
 
-	private final Flux<Long> events;
+	private Flux<String> messages;
 
-	public RxController() {
-		this.events = Flux.intervalMillis(1000);
+	@StreamListener
+	public void sink(@Input(Sink.INPUT) Flux<String> messages) {
+		this.messages = messages;
 	}
 
 	@GetMapping("/events")
 	public Flux<SseEvent> events() {
-		return events.map(e -> new SseEvent(e, MediaType.APPLICATION_JSON));
+		return messages.map(m -> new SseEvent(m, MediaType.APPLICATION_JSON));
 	}
-
-	@StreamListener(Sink.INPUT)
-	public void sink(Flux<?> messages) {
-		messages.subscribe(System.out::println);
-	}
-
 }
